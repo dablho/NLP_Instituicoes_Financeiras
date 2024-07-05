@@ -25,7 +25,7 @@ def get_data_from_db():
             host="dataiesb.iesbtech.com.br",
             database="2312120030_William",
             user="2312120030_William",
-            password="2312120030_William"
+            password="***"
         )
         query = "SELECT * FROM prova.tabela_tcc"
         df = pd.read_sql(query, conn)
