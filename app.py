@@ -13,10 +13,18 @@ from collections import Counter
 import networkx as nx
 import os
 
-# Download necessary NLTK data
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
+# Definir o diretório para armazenar os dados do NLTK
+nltk_data_dir = os.path.join(os.getcwd(), 'nltk_data')
+if not os.path.exists(nltk_data_dir):
+    os.makedirs(nltk_data_dir)
+
+# Adicionar o diretório ao caminho de dados do NLTK
+nltk.data.path.append(nltk_data_dir)
+
+# Baixar os pacotes necessários do NLTK para esse diretório
+nltk.download('punkt', download_dir=nltk_data_dir)
+nltk.download('stopwords', download_dir=nltk_data_dir)
+nltk.download('wordnet', download_dir=nltk_data_dir)
 
 st.title("Análise de Sentimentos dos Comentários Negativos de Instituições Financeiras Brasileiras!")
 
