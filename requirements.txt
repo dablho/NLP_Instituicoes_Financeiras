@@ -5,4 +5,3 @@ wordcloud
 matplotlib
 nltk
 networkx
-os
