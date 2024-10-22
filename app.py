@@ -23,8 +23,8 @@ def get_data_from_db():
     try:
         conn = psycopg2.connect(
             host="dataiesb.iesbtech.com.br",
-            database="2312120030_William",
-            user="2312120030_William",
+            database="*",
+            user="*",
             password="***"
         )
         query = "SELECT * FROM prova.tabela_tcc"
