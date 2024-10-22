@@ -22,10 +22,10 @@ st.title("Análise de Sentimentos dos Comentários Negativos de Instituições F
 def get_data_from_db():
     try:
         conn = psycopg2.connect(
-            host="dataiesb.iesbtech.com.br",
-            database="*",
-            user="*",
-            password="***"
+            host=os.getenv("host"),
+            database=os.getenv("database"),
+            user=os.getenv("user"),
+            password=os.getenv("password")
         )
         query = "SELECT * FROM prova.tabela_tcc"
         df = pd.read_sql(query, conn)
