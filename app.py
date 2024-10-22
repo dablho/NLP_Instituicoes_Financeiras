@@ -22,7 +22,7 @@ if not os.path.exists(nltk_data_dir):
 nltk.data.path.append(nltk_data_dir)
 
 # Baixar os pacotes necessários do NLTK para esse diretório
-nltk.download('punkt', download_dir=nltk_data_dir)
+nltk.download('punkt', download_dir='/content/nltk_data/')
 nltk.download('stopwords', download_dir=nltk_data_dir)
 nltk.download('wordnet', download_dir=nltk_data_dir)
 
