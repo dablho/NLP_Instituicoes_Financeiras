@@ -13,6 +13,7 @@ from collections import Counter
 import networkx as nx
 import os
 
+nltk.download('all')
 # Definir o diretório para armazenar os dados do NLTK
 nltk_data_dir = os.path.join(os.getcwd(), 'nltk_data')
 if not os.path.exists(nltk_data_dir):
