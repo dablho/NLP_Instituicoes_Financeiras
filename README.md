@@ -5,4 +5,5 @@ Projeto que envolve a analise de sentimentos e topicalização de comentários d
 Link do streamlit: https://nlpinstituicoesfinanceiras-wdl5usrhr8dyqbzkbdzfo6.streamlit.app/
 
 Obs: Projeto em desenvolvimento
+
 Autor: William Noronha
