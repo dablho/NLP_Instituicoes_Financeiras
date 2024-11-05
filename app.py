@@ -170,7 +170,7 @@ stop_words = set(stopwords.words('portuguese')).union(additional_stopwords)
 text_with_stopwords = " ".join(" ".join(preprocess_text(comment, remove_stopwords=True)) for comment in data['comentario'])
 
 # Nuvem de palavras com stopwords (incluindo stopwords adicionais) e preprocessamento
-st.write('Nuvem de palavras dos comentários (com stopwords):')
+st.write('Nuvem de palavras dos comentários (com stopwords personalizadas):')
 wordcloud_with_stopwords = WordCloud(stopwords=stop_words, max_font_size=50, max_words=100, background_color="white").generate(text_with_stopwords)
 
 fig_with_stopwords, ax_with_stopwords = plt.subplots(figsize=(10, 6))
@@ -194,7 +194,7 @@ words, counts = zip(*most_common_with_stopwords)
 
 fig_bar_with_stopwords, ax_bar_with_stopwords = plt.subplots(figsize=(10, 6))
 ax_bar_with_stopwords.bar(words, counts)
-ax_bar_with_stopwords.set_title(f'{num_words} palavras mais frequentes (com stopwords personalizadas)')
+ax_bar_with_stopwords.set_title(f'{num_words} palavras mais frequentes')
 ax_bar_with_stopwords.set_xlabel('Palavras')
 ax_bar_with_stopwords.set_ylabel('Frequência')
 ax_bar_with_stopwords.tick_params(axis='x', rotation=45)
