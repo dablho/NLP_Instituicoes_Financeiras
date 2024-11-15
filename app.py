@@ -12,6 +12,11 @@ import unicodedata
 from collections import Counter
 import networkx as nx
 import os
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
+from textblob import TextBlob
+from textblob import Blobber
+from transformers import pipeline
 
 # Definir o diretório para armazenar os dados do NLTK
 nltk_data_dir = os.path.join(os.getcwd(), 'nltk_data')
@@ -170,7 +175,7 @@ stop_words = set(stopwords.words('portuguese')).union(additional_stopwords)
 text_with_stopwords = " ".join(" ".join(preprocess_text(comment, remove_stopwords=True)) for comment in data['comentario'])
 
 # Nuvem de palavras com stopwords (incluindo stopwords adicionais) e preprocessamento
-st.write('Nuvem de palavras dos comentários (com stopwords):')
+st.write('Nuvem de palavras dos comentários (com stopwords personalizadas):')
 wordcloud_with_stopwords = WordCloud(stopwords=stop_words, max_font_size=50, max_words=100, background_color="white").generate(text_with_stopwords)
 
 fig_with_stopwords, ax_with_stopwords = plt.subplots(figsize=(10, 6))
@@ -199,3 +204,38 @@ ax_bar_with_stopwords.set_xlabel('Palavras')
 ax_bar_with_stopwords.set_ylabel('Frequência')
 ax_bar_with_stopwords.tick_params(axis='x', rotation=45)
 st.pyplot(fig_bar_with_stopwords)
+
+
+# Pré-processar comentários
+data['comentario_tratado'] = data['comentario'].apply(preprocess_text)
+
+# Análise de Sentimentos
+def analyze_sentiment(text):
+    analysis = TextBlob(text)
+    return analysis.sentiment.polarity
+
+# Análise de Sentimentos
+data['sentiment'] = data['comentario'].apply(analyze_sentiment)
+data['sentiment_label'] = data['sentiment'].apply(lambda x: 'Positivo' if x > 0 else ('Negativo' if x < 0 else 'Neutro'))
+    
+# Exibir tabela com análise de sentimentos
+st.write("Análise de Sentimentos dos Comentários:")
+st.write(data[['comentario', 'sentiment', 'sentiment_label']])
+
+# Gráfico de Sentimentos
+sentiment_counts = data['sentiment_label'].value_counts()
+fig, ax = plt.subplots()
+ax.bar(sentiment_counts.index, sentiment_counts.values, color=['red', 'green', 'gray'])
+ax.set_title("Distribuição de Sentimentos")
+ax.set_xlabel("Sentimento")
+ax.set_ylabel("Número de Comentários")
+st.pyplot(fig)
+
+# Nuvem de palavras com os comentários negativos
+st.write("Nuvem de Palavras para Comentários Negativos:")
+negative_comments = " ".join(data[data['sentiment_label'] == 'Negativo']['comentario'])
+wordcloud_neg = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(negative_comments)
+fig_wc, ax_wc = plt.subplots()
+ax_wc.imshow(wordcloud_neg, interpolation='bilinear')
+ax_wc.axis("off")
+st.pyplot(fig_wc)
