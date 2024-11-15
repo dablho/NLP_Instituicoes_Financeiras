@@ -5,3 +5,6 @@ wordcloud
 matplotlib
 nltk
 networkx
+transformers
+torch
+textblob
