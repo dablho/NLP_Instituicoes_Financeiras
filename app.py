@@ -21,6 +21,10 @@ from transformers import pipeline, AutoModelForSequenceClassification, AutoToken
 from nltk.sentiment import SentimentIntensityAnalyzer
 import re
 from collections import defaultdict
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('vader_lexicon')
 
 # Definir o diretório para armazenar os dados do NLTK
 nltk_data_dir = os.path.join(os.getcwd(), 'nltk_data')
